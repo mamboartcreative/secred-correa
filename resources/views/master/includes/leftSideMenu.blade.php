@@ -21,15 +21,17 @@
         {{--Admin menu--}}
 
         @if(Auth::user()->admin == 1)
-        <li><span class="app-menu__item">ADMIN NAVIGATION</span></li>
+            <li><span class="app-menu__item">ADMIN NAVIGATION</span></li>
 
-        <li><a class="app-menu__item {{ Request::path() == 'item' ? 'active' : '' }}" href="{{ route('item.index') }}"><i class="app-menu__icon fa fa-first-order"></i><span class="app-menu__label">Item</span></a></li>
+            <li><a class="app-menu__item {{ Request::path() == 'item' ? 'active' : '' }}" href="{{ route('item.index') }}"><i class="app-menu__icon fa fa-first-order"></i><span class="app-menu__label">Item</span></a></li>
 
-        <li><a class="app-menu__item {{ Request::path() == 'orders' ? 'active' : '' }}" href="{{ route('order.index') }}"><i class="app-menu__icon fa fa-shopping-bag"></i><span class="app-menu__label">Orders</span></a></li>
+            <li><a class="app-menu__item {{ Request::path() == 'orders' ? 'active' : '' }}" href="{{ route('order.index') }}"><i class="app-menu__icon fa fa-shopping-bag"></i><span class="app-menu__label">Orders</span></a></li>
 
-        <li><a class="app-menu__item {{ Request::path() == 'transactions' ? 'active' : '' }}" href="{{ route('transactions') }}"><i class="app-menu__icon fa fa-credit-card"></i><span class="app-menu__label">Transaction Details</span></a></li>
+            <li><a class="app-menu__item {{ Request::path() == 'transactions' ? 'active' : '' }}" href="{{ route('transactions') }}"><i class="app-menu__icon fa fa-credit-card"></i><span class="app-menu__label">Transaction Details</span></a></li>
 
-        <li><a class="app-menu__item {{ Request::path() == 'user' ? 'active' : '' }}" href="{{ route('user.index') }}"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Users &amp; Roles</span></a></li>
+            <li><a class="app-menu__item {{ Request::path() == 'user' ? 'active' : '' }}" href="{{ route('user.index') }}"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Users &amp; Roles</span></a></li>
+
+            <li><a class="app-menu__item {{ Request::path() == 'verification' ? 'active' : '' }}" href="{{ route('verification.index') }}"><i class="app-menu__icon fa fa-shield    "></i><span class="app-menu__label">Verification Code</span></a></li>
         @endif
     </ul>
 </aside>

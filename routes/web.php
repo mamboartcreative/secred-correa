@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth'], function (){
     // User management
     Route::resource('user', 'RegisterUserController');
 
+    // Sending verification code
+    Route::resource('verification', 'VerificationController');
+
     // Role management
     Route::resource('role', 'RoleController');
 
