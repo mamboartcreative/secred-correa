@@ -65,6 +65,19 @@
                             </div>
 
                             <div class="form-group row">
+                                <label class="control-label col-md-3">Type</label>
+                                <div class="col-md-8">
+                                    <select required name="type" id="type">
+                                        <option value="">Please Select</option>
+                                        <option value="LOSYEN">Losyen</option>
+                                        <option value="KOPI">Kopi</option>
+                                        <option value="TRIM">Trim</option>
+                                        <option value="DETOX">Detox</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label class="control-label col-md-3">Product Image</label>
                                 <div class="col-md-8">
                                     <input required class="form-control" name="picture" type="file">

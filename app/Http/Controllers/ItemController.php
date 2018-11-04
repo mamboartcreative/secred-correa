@@ -41,6 +41,7 @@ class ItemController extends Controller
             'selling_price' => 'required|numeric|gt:cost_price',
             'quantity' => 'required|numeric',
             'picture' => 'required|image',
+            'type' => 'required'
         ]);
 
         if($request->hasFile('picture')){
@@ -61,7 +62,8 @@ class ItemController extends Controller
                 'cost_price' => $request->cost_price,
                 'selling_price' => $request->selling_price,
                 'quantity' => $request->quantity,
-                'picture' => $full_path
+                'picture' => $full_path,
+                'type' => $request->type
             ]);
 
             Session::flash('status', 'Item added successfully');

@@ -69,7 +69,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'references' => 'numeric|digits_between:10,11',
+//            'references' => 'nullable|digits_between:10,11',
             'role' => 'required',
             'code' => 'required|string|max:255'
         ]);
@@ -83,32 +83,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'admin' => 0,
+        ]);
+
         $verify = Verification::where('email', $data['email'])->where('code', $data['code'])->first();
 
-        if($verify != null || !$verify){
+        if($verify == null){
+            User::destroy($user->id);
             Session::flash('status', 'Invalid verification code');
-            return redirect()->route('register');
-        }else{
-
-            $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'admin' => 0,
-            ]);
-
-            Profile::create([
-                'user_id' => $user->id,
-                'references' => $data['references'] != '' ? $data['references'] : 'NO REFERRAL',
-                'picture' => 'upload\profile\48.jpg',
-            ]);
-
-            $user->role()->attach($data['role']);
-
-            Mail::to('ershadahamed89@gmail.com')->send(new SendUserRegistered($user));
-
             return $user;
-
         }
+
+        Profile::create([
+            'user_id' => $user->id,
+            'references' => $data['references'] != '' ? $data['references'] : 'NO REFERRAL',
+            'picture' => 'upload\profile\48.jpg',
+        ]);
+
+        $user->role()->attach($data['role']);
+
+        Mail::to('ershadahamed89@gmail.com')->send(new SendUserRegistered($user));
+
+        return $user;
     }
 }

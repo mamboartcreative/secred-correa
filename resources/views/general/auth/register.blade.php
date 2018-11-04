@@ -35,7 +35,7 @@
                 <input class="form-control" type="password" placeholder="Password again" name="password_confirmation" id="password-confirm" required>
             </div>
             <div class="form-group">
-                <input class="form-control" type="tel" placeholder="Referral HP, empty if non" name="references" value="{{ old('references') }}">
+                <input class="form-control" type="tel" placeholder="Referral HP, leave empty if non" name="references" value="{{ old('references') }}">
             </div>
             <div class="form-group">
                 <input class="form-control" type="text" placeholder="Verification Code" value="{{ old('code') }}" name="code" id="code" required>
