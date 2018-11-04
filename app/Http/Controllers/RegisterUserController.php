@@ -6,6 +6,7 @@ use App\Order;
 use App\Profile;
 use App\Role;
 use App\User;
+use App\Verification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Session;

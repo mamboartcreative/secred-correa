@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendVerificationCode;
 use App\Verification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Session;
 
 class VerificationController extends Controller
@@ -47,9 +49,7 @@ class VerificationController extends Controller
             'code' => $request->code
         ]);
 
-        $data = $request->all();
-
-
+        Mail::to($request->email)->send(new SendVerificationCode($request->code));
 
         Session::flash('status', 'Verification for email '. $request->email .' added successfully');
         return redirect()->route('verification.index');

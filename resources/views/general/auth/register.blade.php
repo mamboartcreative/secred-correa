@@ -18,7 +18,7 @@
     <div class="logo">
         <h1>Secret Correa</h1>
     </div>
-    <div class="login-box" style="height: 490px;">
+    <div class="login-box" style="height: 520px;">
         <form class="login-form" method="post" action="{{ route('register') }}">
             @csrf
             <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>REGISTRATION</h3>
@@ -36,6 +36,9 @@
             </div>
             <div class="form-group">
                 <input class="form-control" type="tel" placeholder="Referral HP, empty if non" name="references" value="{{ old('references') }}">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="Verification Code" value="{{ old('code') }}" name="code" id="code" required>
             </div>
             <div class="form-group">
                 <select required name="role" id="role">

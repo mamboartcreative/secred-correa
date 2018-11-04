@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\SendUserRegistered;
 use App\Role;
 use App\User;
 use App\Profile;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Session;
+use App\Verification;
 
 class RegisterController extends Controller
 {
@@ -66,7 +70,8 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'references' => 'numeric|digits_between:10,11',
-            'role' => 'required'
+            'role' => 'required',
+            'code' => 'required|string|max:255'
         ]);
     }
 
@@ -78,21 +83,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'admin' => 0,
-        ]);
+        $verify = Verification::where('email', $data['email'])->where('code', $data['code'])->first();
 
-        Profile::create([
-            'user_id' => $user->id,
-            'references' => $data['references'] != '' ? $data['references'] : 'NO REFERRAL',
-            'picture' => 'upload\profile\48.jpg',
-        ]);
+        if($verify != null || !$verify){
+            Session::flash('status', 'Invalid verification code');
+            return redirect()->route('register');
+        }else{
 
-        $user->role()->attach($data['role']);
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'admin' => 0,
+            ]);
 
-        return $user;
+            Profile::create([
+                'user_id' => $user->id,
+                'references' => $data['references'] != '' ? $data['references'] : 'NO REFERRAL',
+                'picture' => 'upload\profile\48.jpg',
+            ]);
+
+            $user->role()->attach($data['role']);
+
+            Mail::to('ershadahamed89@gmail.com')->send(new SendUserRegistered($user));
+
+            return $user;
+
+        }
     }
 }
