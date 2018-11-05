@@ -92,6 +92,7 @@
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Min Purchase / Month</th>
+                                <th>Prices RM</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -101,6 +102,9 @@
                                         <td>{{ $role->name }}</td>
                                         <td>{{ $role->description }}</td>
                                         <td class="text-right">RM {{ number_format($role->min_purchase, 2) }}</td>
+                                        <td>
+                                            {{ $role->price }}
+                                        </td>
                                         <td>{{ '' }}</td>
                                     </tr>
                                 @endforeach

@@ -37,6 +37,7 @@
                                 <th>Name</th>
                                 <th width="8%">Price</th>
                                 <th>Description</th>
+                                <th>Type</th>
                                 <th>Picture</th>
                                 <th width="10%" class="text-center">Add to cart</th>
                             </tr>
@@ -44,10 +45,17 @@
                             <tbody>
                             @foreach($items as $item)
                                 <tr>
-                                    <th>{{ $item->name }}</th>
-                                    <th>RM {{ $item->selling_price }}</th>
-                                    <th>{{ $item->description }}</th>
-                                    <th><img width="50px" height="50px" src="{{ asset('storage/'.$item->picture ) }}" alt="{{ $item->name }}"></th>
+                                    <td>{{ $item->name }}</td>
+                                    <td>
+                                        @foreach($prices as $key => $price)
+                                            @if($item->type == $key)
+                                                RM {{ number_format($price, 2) }}
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td>{{ $item->description }}</td>
+                                    <td>{{ $item->type }}</td>
+                                    <td><img width="50px" height="50px" src="{{ asset('storage/'.$item->picture ) }}" alt="{{ $item->name }}"></td>
                                     <td class="text-center">
                                         <a href="{{ route('add_cart', ['id' => $item->id]) }}"><i class="fa fa-cart-plus fa-lg"></i></a>
                                     </td>

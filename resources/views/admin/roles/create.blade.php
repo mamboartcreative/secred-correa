@@ -35,6 +35,25 @@
                                 <label class="control-label">Minimum Purchase (RM)</label>
                                 <input required style="height: 58px;" name="min_purchase" value="{{ old('min_purchase') }}" class="form-control" type="number" placeholder="Enter purchase amount per month">
                             </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Losyen (RM)</label>
+                                <input required style="height: 58px;" name="losyen" value="{{ old('losyen') }}" class="form-control" type="number" placeholder="Losyen Price">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Kopi (RM)</label>
+                                <input required style="height: 58px;" name="kopi" value="{{ old('kopi') }}" class="form-control" type="number" placeholder="Kopi Price">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Trim (RM)</label>
+                                <input required style="height: 58px;" name="trim" value="{{ old('trom') }}" class="form-control" type="number" placeholder="Trim Price">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Detox (RM)</label>
+                                <input required style="height: 58px;" name="detox" value="{{ old('detox') }}" class="form-control" type="number" placeholder="Detox Price">
+                            </div>
+
+
                             <div class="form-group col-md-3 align-self-end">
                                 <button class="btn btn-primary" row="1" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add Now</button>
                             </div>

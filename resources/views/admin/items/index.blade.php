@@ -36,6 +36,7 @@
                                 <th>Name</th>
                                 <th>Quantity</th>
                                 <th>Description</th>
+                                <th>Type</th>
                                 <th>Cost Price</th>
                                 <th>Selling Price</th>
                                 <th>Picture</th>
@@ -46,15 +47,16 @@
                             <tbody>
                             @foreach($items as $item)
                                 <tr>
-                                    <th>{{ $item->name }}</th>
-                                    <th>{{ $item->quantity }}</th>
-                                    <th>{{ $item->description }}</th>
-                                    <th>{{ $item->cost_price }}</th>
-                                    <th>{{ $item->selling_price }}</th>
-                                    <th><img width="50px" height="50px" src="{{ asset('storage/'.$item->picture ) }}" alt="{{ $item->name }}"></th>
-                                    <th>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->quantity }}</td>
+                                    <td>{{ $item->description }}</td>
+                                    <td>{{ $item->type }}</td>
+                                    <td>{{ $item->cost_price }}</td>
+                                    <td>{{ $item->selling_price }}</td>
+                                    <td><img width="50px" height="50px" src="{{ asset('storage/'.$item->picture ) }}" alt="{{ $item->name }}"></td>
+                                    <td>
                                         {{ $item->created_at->format('d/m/Y') }}
-                                    </th>
+                                    </td>
                                     <td></td>
                                 </tr>
                             @endforeach

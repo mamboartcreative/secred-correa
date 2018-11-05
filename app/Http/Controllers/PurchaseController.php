@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Profile;
+use App\Role;
 use App\Transaction;
 use Illuminate\Http\Request;
 use App\Item;
@@ -14,14 +15,33 @@ use App\User;
 
 class PurchaseController extends Controller
 {
+
+    protected $price = 0;
+
     public function index(){
         $items = Item::all();
-        return view('general.purchase.index')->with('items', $items)->with('cartCount', $this->cartCount());
+        return view('general.purchase.index')->with('items', $items)->with('cartCount', $this->cartCount())->with('prices', $this->userPrice());
+    }
+
+    public function userPrice(){
+        $prices = '';
+
+        foreach(Auth::user()->role as $role){
+            $prices = $role->price;
+        }
+
+        return json_decode($prices);
     }
 
     public function addToCart($id){
 
         $item = Item::find($id);
+
+        foreach($this->userPrice() as $key => $jprice){
+            if($item->type == $key){
+                $this->price = $jprice;
+            }
+        }
 
         if(Cart::has($id)){
             $item = Cart::get($id);
@@ -31,7 +51,7 @@ class PurchaseController extends Controller
                 'id' => $item->id,
                 'name' => $item->name,
                 'quantity' => 1,
-                'price' => $item->selling_price,
+                'price' => $this->price,
             ]);
         }
 

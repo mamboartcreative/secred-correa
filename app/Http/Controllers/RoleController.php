@@ -24,16 +24,33 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+
+        // { "name":"John", "age":30, "car":null }
+
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'min_purchase' => 'required|numeric'
+            'min_purchase' => 'required|numeric',
+            'losyen' => 'required|numeric',
+            'kopi' => 'required|numeric',
+            'trim' => 'required|numeric',
+            'detox' => 'required|numeric'
         ]);
+
+        $price = [
+            "LOSYEN" => $request->losyen,
+            "KOPI" => $request->kopi,
+            "TRIM" => $request->trim,
+            "DETOX" => $request->detox
+        ];
+
+        $jprice = json_encode($price);
 
         $role = Role::create([
             'name' => $request->name,
             'description' => $request->description,
-            'min_purchase' => $request->min_purchase
+            'min_purchase' => $request->min_purchase,
+            'price' => $jprice
         ]);
 
         Session::flash('status', 'Role '. $role->name .' added successfully');
